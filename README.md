@@ -27,6 +27,21 @@ someone.ate('poop')
 
 `ate` doesn't exist. fuzzyattr matches `eat`. It logs a warning when this happens.
 
+## how is this useful?
+
+Fix non-PEP8 code written by other morons. Make python standard library more pythonic.
+
+```python
+@fuzzyattr
+class BetterTestCase(unittest.TestCase):
+    pass
+    
+class PythonicTest(BetterTestCase):
+    def test_thing(self):
+        self.assert_equal(True, False)
+        # much better than assertEqual
+```
+
 ## install
 
 ```bash
