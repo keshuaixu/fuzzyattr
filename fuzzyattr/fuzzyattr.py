@@ -8,8 +8,13 @@ def fuzzyattr(cls):
             self.wrapped = cls(*args, **kwargs)
 
         def __getattr__(self, item):
-            available_attributes = self.wrapped.__dict__.keys()
-            closest_attribute = process.extractOne(item, available_attributes)
-            logging.warning(
-                'fuzzy attribute: You accessed \'{}\' but you probably meant \'{}\'.'.format(item, closest_attribute))
-            return self.wrapped.__dict__[closest_attribute]
+            try:
+                return getattr(self.wrapped, item)
+            except AttributeError:
+                available_attributes = dir(self.wrapped)
+                closest_attribute = process.extractOne(item, available_attributes)
+                logging.warning(
+                    'fuzzy attribute: You accessed \'{}\' but you probably meant \'{}\'.'.format(item, closest_attribute[0]))
+                return getattr(self.wrapped, closest_attribute[0])
+
+    return Wrapper
