@@ -18,6 +18,12 @@ class Human:
         return f'{self.name} ate {food}'
 ```
 
+Or wrap the class.
+
+```python
+Human = fuzzyattr(Human)
+```
+
 Now you can make typos.
 
 ```python
@@ -32,9 +38,7 @@ someone.ate('poop')
 Fix non-PEP8 code written by other morons. Make python standard library more pythonic.
 
 ```python
-@fuzzyattr
-class BetterTestCase(unittest.TestCase):
-    pass
+BetterTestCase = fuzzyattr(unittest.TestCase)
     
 class PythonicTest(BetterTestCase):
     def test_thing(self):
